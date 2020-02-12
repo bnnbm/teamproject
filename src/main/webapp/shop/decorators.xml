@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<decorators defaultdir = "/decorator">
+	<decorator name = "main1" page = "broadcastdecorator.jsp">
+		<pattern>/broadcast/*.shop </pattern>
+	</decorator>
+	<decorator name = "main2" page = "shopdecorator.jsp">
+		<pattern>/shop/*.shop </pattern>
+		<pattern>/item/*.shop </pattern>
+		<pattern>/sellerpage/*.shop </pattern>
+		<pattern>/buyerpage/*.shop </pattern>
+		<pattern>/user/*.shop </pattern>		
+	</decorator>
+	<excludes>
+	</excludes>
+</decorators>

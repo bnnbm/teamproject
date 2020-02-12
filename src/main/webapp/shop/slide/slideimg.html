@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style type="text/css">
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.animation_canvas { /* 이미지 한개의 영역만 보여줌 */
+	overflow: hidden; /* 영역 외부의 내용을 보여주지 않음 */
+	position: relative;
+	width: 600px;
+	height: 400px;
+}
+/* 이미지 5개가 보여지는 영역  */
+.slider_panel {
+	width: 3000px;
+	position: relative;
+}
+/* 이미지 한개 보여지는 영역  */
+.slider_image {
+	float: left;
+	width: 600px;
+	height: 400px;
+}
+/* 설명을 보여주는 영역*/
+.slider_text_panel {
+	position: absolute;
+	top: 100px;
+	left: 50px;
+}
+/* 설명의 내용 */
+.slider_text {
+	position: absolute;
+	width: 250px;
+	height: 150px;
+}
+/* 선택버튼의 영역*/
+.control_panel {
+	position: absolute;
+	top: 380px;
+	left: 270px;
+	height: 13px;
+	overflow: hidden;
+}
+/*선택버튼 이미지 */
+.control_button {
+	width: 12px;
+	height: 46px;
+	position: relative;
+	float: left;
+	cursor: pointer;
+	background: url('point_button.png');
+}
+/* 마우스가 올라가게 되면  살짝 올라감*/
+.control_button:hover {
+	top: -16px;
+}
+/* 다시 돌아옴*/
+.control_button.select {
+	top: -31px;
+}
+</style>
+<script type="text/javascript">
+	$(function() {
+		//버튼들 이벤트 등록
+		$(".control_button").each(function(index){
+			$(this).attr("idx",index)
+		}).click(function() {
+			//$(this).attr('idx') : 클릭된 컴포넌트의 idx 속성 값 0~4
+			var index = $(this).attr('idx');
+			moveSlider(index);
+		});
+		//클릭과 상관없이 화면이 로드 된 경우 실행됨
+		//처음에 몰아나오는 텍스트를 보이지 않도록 설정 + idx 속성 등록
+		$('.slider_text').css("left",-300).each(function(index){
+			$(this).attr("idx",index)
+		}); 
+		moveSlider(0);	//첫번째 이미지가 화면에 출력되도록
+/*		var idx = 0;
+		var inc = 1;
+ 		setInterval(function() {
+			if (idx >= 4){
+				inc = -1;
+			}
+			if (idx <= 0){
+				inc = 1;
+			}
+			idx += inc;
+			moveSlider(idx); 
+		}, 1500); */
+	});
+
+	function moveSlider(index) {
+		var moveLeft = -(index * 600);
+		$('.slider_panel').animate({
+			left : moveLeft
+		}, 'slow');
+		$('.control_button[idx=' + index + ']').addClass('select');
+		$('.control_button[idx!=' + index + ']').removeClass('select');
+		$('.slider_text[idx=' + index + ']').show().animate({
+			left : 0
+		}, 'slow');
+		$('.slider_text[idx!=' + index + ']').hide('slow', function() {
+			$(this).css('left', -300);
+		});
+	}
+</script>
+</head>
+<body>
+	<div class="animation_canvas">
+		<div class="slider_panel">
+			<img src="IR.jpg" class="slider_image" /> <img src="IR2.jpg"
+				class="slider_image" /> <img src="IU.jpg" class="slider_image" />
+			<img src="UNA1.gif" class="slider_image" /> <img src="UNA2.gif"
+				class="slider_image" />
+		</div>
+		<div class="slider_text_panel">
+			<div class="slider_text" >
+				<h1>아이린 이미지1</h1>
+				<p>화성인</p>
+			</div>
+			<div class="slider_text" >
+				<h1>아이린 이미지2</h1>
+				<p>목성인</p>
+			</div>
+			<div class="slider_text" >
+				<h1>아이유 이미지</h1>
+				<p>태양인</p>
+			</div>
+			<div class="slider_text" >
+				<h1>유나 움짤1</h1>
+				<p>사람이 아니다.</p>
+			</div>
+			<div class="slider_text" >
+				<h1>유나 움짤2</h1>
+				<p>단순한 팬심</p>
+			</div>
+		</div>
+
+		<div class="control_panel">
+			<div class="control_button" ></div>
+			<div class="control_button" ></div>
+			<div class="control_button" ></div>
+			<div class="control_button" ></div>
+			<div class="control_button" ></div>
+		</div>
+	</div>
+</body>
+</html>
