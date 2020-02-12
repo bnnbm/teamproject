@@ -192,7 +192,7 @@
 								<div
 									class="box-footer d-flex justify-content-between align-items-center">
 									<div class="left-col">
-										<a href="../item/shop-category-left.shop"
+										<a href="../item/category.shop?userid=${param.userid}"
 											class="btn btn-secondary mt-0"><i
 											class="fa fa-chevron-left"></i> 쇼핑 계속하기</a>
 									</div>
@@ -205,55 +205,7 @@
 							</form>
 						</div>
 					</form:form>
-					<div class="row">
-						<div class="col-lg-3 col-md-6">
-							<div class="box text-uppercase mt-0 mb-2">
-								<h3>찜한 상품</h3>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6">
-							<div class="product">
-								<div class="image">
-									<a href="../item/shop-detail.shop"><img
-										src="../shop/img/product2.jpg" alt="" class="img-fluid image1"></a>
-								</div>
-								<div class="text">
-									<h3 class="h5">
-										<a href="../item/shop-detail.shop">퍼 코트</a>
-									</h3>
-									<p class="price">￦55000</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6">
-							<div class="product">
-								<div class="image">
-									<a href="../item/shop-detail.shop"><img
-										src="../shop/img/product3.jpg" alt="" class="img-fluid image1"></a>
-								</div>
-								<div class="text">
-									<h3 class="h5">
-										<a href="../item/shop-detail.shop">청바지</a>
-									</h3>
-									<p class="price">￦31000</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6">
-							<div class="product">
-								<div class="image">
-									<a href="../item/shop-detail.shop"><img
-										src="../shop/img/product1.jpg" alt="" class="img-fluid image1"></a>
-								</div>
-								<div class="text">
-									<h3 class="h5">
-										<a href="../item/shop-detail.shop">운동화</a>
-									</h3>
-									<p class="price">￦42000</p>
-								</div>
-							</div>
-						</div>
-					</div>
+	
 				</div>
 				<div class="col-lg-3">
 					<div id="order-summary" class="box mt-0 mb-4 p-0">

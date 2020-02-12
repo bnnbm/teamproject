@@ -690,10 +690,22 @@ public class ItemController {
 	//////////////////////////// 주문 내역 자세히
 	//////////////////////////// //////////////////////////////////////////////
 	@RequestMapping(value = "orderdetail")
-	public ModelAndView mypageorderdetail(String userid, String buyerid, String itemid, String saleid, HttpSession session) {
+	public ModelAndView mypageorderdetail(String userid, String buyerid, String itemid, String saleid, String division,HttpSession session) {
 		User sessionid = (User)session.getAttribute("loginUser");
-		if(!userid.equals(sessionid.getUserid())) {
-			throw new LoginException("본인 아이디가 아닙니다.", "../shop/mypage.shop?userid="+sessionid.getUserid());
+		System.out.println(division);
+		System.out.println(buyerid);
+		System.out.println(sessionid.getUserid());
+		if(division == null) {
+			System.out.println("22222");
+			if(!userid.equals(sessionid.getUserid())) {
+				throw new LoginException("본인 아이디가 아닙니다.", "../shop/mypage.shop?userid="+sessionid.getUserid());
+			}
+		}else {
+			System.out.println("!1111");
+			if(!buyerid.equals(sessionid.getUserid())){
+				throw new LoginException("본인 아이디가 아닙니다.", "../shop/mypage.shop?userid="+sessionid.getUserid());
+			}
+			
 		}
 		ModelAndView mav = new ModelAndView();
 
@@ -801,6 +813,8 @@ public class ItemController {
 	@ResponseBody
 	public String denytakeback(String saleid, String refuse,String userid, HttpSession session) {
 		User sessionid = (User)session.getAttribute("loginUser");
+		System.out.println(sessionid.getUserid());
+		System.out.println(userid);
 		if(!userid.equals(sessionid.getUserid())) {
 			throw new LoginException("본인 아이디가 아닙니다.", "../shop/mypage.shop?userid="+sessionid.getUserid());
 		}
@@ -810,14 +824,18 @@ public class ItemController {
 
 	////////////////////////// 결제 내역 /////////////////////////
 	@RequestMapping(value = "payment")
-	public ModelAndView mypagepayment(Integer pageNum, String searchtype, String searchcontent,String userid,HttpSession session) {
-		User sessionid = (User)session.getAttribute("loginUser");
-		if(!userid.equals(sessionid.getUserid())) {
-			throw new LoginException("본인 아이디가 아닙니다.", "../shop/mypage.shop?userid="+sessionid.getUserid());
+	public ModelAndView payment(Integer pageNum, String searchtype, String searchcontent,String userid,
+			HttpSession session) {
+		
+
+		User sessionidid = (User)session.getAttribute("loginUser");
+		if(!userid.equals(sessionidid.getUserid())) {
+			throw new LoginException("본인 아이디가 아닙니다.", "../shop/mypage.shop?userid="+sessionidid.getUserid());
 		}
-		ModelAndView mav = new ModelAndView();
+		
 		User user = (User) session.getAttribute("loginUser");
-		String userids = user.getUserid();
+		String sessionid = user.getUserid();
+		ModelAndView mav = new ModelAndView();
 
 		if (pageNum == null || pageNum.toString().equals("")) {
 			pageNum = 1;
@@ -833,22 +851,23 @@ public class ItemController {
 			searchcontent = null;
 		}
 
-		int limit = 10;
-		int paymentcount = service.getpaymentcnt(searchtype, searchcontent, userids);
-		List<Itemmanagement> paymentlist = service.paymentlist(pageNum, limit, searchtype, searchcontent, userids);
-		int itemno = paymentcount - (pageNum - 1) * limit; // 화면에 출력되는 게시물 번호 (가짜번호)
-		int maxpage = (int) ((double) paymentcount / limit + 0.95); // 마지막페이지, 최대페이지
+		int limit = 10; // 페이지당 보여지는 게시물 건수
+		int listcount = service.gettakebackedcount(searchtype, searchcontent, sessionid); // 전체 등록된 게시물 건수
+		List<Itemmanagement> itemList = service.gettakebacked(pageNum, limit, searchtype, searchcontent,
+				sessionid); // 건수만큼 보드 객체를 가져와
+		int maxpage = (int) ((double) listcount / limit + 0.95); // 마지막페이지, 최대페이지
 		int startpage = (int) ((pageNum / 10.0 + 0.9) - 1) * 10 + 1; // 보여지는 첫번째 페이지
 		int endpage = startpage + 9; // 보여지는 마지막 페이지
 		if (endpage > maxpage) { // end 페이지가 max 페이지를 넘지 못하도록
 			endpage = maxpage;
 		}
+		int itemno = listcount - (pageNum - 1) * limit; // 화면에 출력되는 게시물 번호 (가짜번호)
 		mav.addObject("pageNum", pageNum);
 		mav.addObject("maxpage", maxpage);
 		mav.addObject("startpage", startpage);
 		mav.addObject("endpage", endpage);
-		mav.addObject("paymentcount", paymentcount);
-		mav.addObject("paymentlist", paymentlist);
+		mav.addObject("listcount", listcount);
+		mav.addObject("itemList", itemList);
 		mav.addObject("itemno", itemno);
 		return mav;
 	}
@@ -904,4 +923,5 @@ public class ItemController {
 		mav.addObject("itemno", itemno);
 		return mav;
 	}
+	
 }

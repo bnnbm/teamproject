@@ -20,13 +20,13 @@
 		<div class="container">
 			<div class="row d-flex align-items-center flex-wrap">
 				<div class="col-md-7">
-					<h1 class="h2">판매 등록 물품 관리</h1>
+					<h1 class="h2">주문 내역</h1>
 				</div>
 				<div class="col-md-5">
 					<ul class="breadcrumb d-flex justify-content-end">
 						<li class="breadcrumb-item"><a
 							href="../shop/index.shop?userid=${sessionScope.loginUser.userid }">Home</a></li>
-						<li class="breadcrumb-item active">물품관리</li>
+						<li class="breadcrumb-item active">주문내역</li>
 					</ul>
 				</div>
 			</div>
@@ -51,10 +51,10 @@
 									class="nav-link"><i class="fa fa-heart"></i> 찜한 상품</a></li>
 								<li class="nav-item"><a
 									href="payment.shop?userid=${sessionScope.loginUser.userid}"
-									class="nav-link"><i class="fa fa-user"></i> 결제 내역</a></li>
+									class="nav-link"><i class="fa fa-list"></i> 반려 내역</a></li>
 								<li class="nav-item"><a
 									href="deliverysearch.shop?userid=${sessionScope.loginUser.userid}"
-									class="nav-link"><i class="fa fa-sign-out"></i>배송조회</a></li>
+									class="nav-link"><i class="fa fa-sign-out"></i> 배송조회</a></li>
 							</ul>
 						</div>
 					</div>
@@ -119,7 +119,7 @@
 												<td><fmt:formatDate value="${i.date}"
 														pattern="yyyy년MM월dd일 HH시mm분ss초" /></td>
 												<td><a
-													href="orderdetail.shop?buyerid=${sessionScope.loginUser.userid}&userid=${i.userid}&itemid=${i.itemid}&saleid=${i.saleid}"
+													href="orderdetail.shop?buyerid=${sessionScope.loginUser.userid}&userid=${i.userid}&itemid=${i.itemid}&saleid=${i.saleid}&division=1"
 													class="btn btn-template-outlined btn-sm">상세보기</a> 
 													
 													<fmt:formatDate

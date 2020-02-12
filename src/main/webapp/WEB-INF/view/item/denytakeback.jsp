@@ -40,6 +40,7 @@
 <body>
 	<form id="f" method="post" action="denytakeback.shop">
 		<input type="hidden" name="saleid" value="${im.saleid}" />
+		<input type="hidden" name="userid" value="${im.userid}" />
 		<table class="table" style="width: 100%">
 
 			<tr>

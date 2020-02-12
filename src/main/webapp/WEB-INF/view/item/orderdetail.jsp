@@ -167,10 +167,11 @@
                         <div
                            class="box-footer d-flex justify-content-between align-items-center">
                            <div class="left-col">
-                              <a href="payment.shop?userid=${imt.userid }"
+                              <a href="customer-order.shop?userid=${imt.buyerid }"
                                  class="btn btn-secondary mt-0"><i
-                                 class="fa fa-chevron-left"></i>결제 내역</a>
+                                 class="fa fa-chevron-left"></i>뒤로 가기</a>
                            </div>
+                           
                         </div>
                      </c:if>
                      </form>
